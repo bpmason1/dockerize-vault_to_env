@@ -1,0 +1,14 @@
+FROM rust:1.30
+
+# saves to /usr/local/cargo/bin/credentials_to_env
+RUN cargo install credentials_to_env
+
+#--------------------------------------------------------------------
+# Create a fresh image without the compile-time dependencies.
+#--------------------------------------------------------------------
+FROM debian:jessie-slim
+
+COPY --from=0 /usr/local/cargo/bin/credentials-to-env /usr/local/bin/credentials-to-env
+
+RUN apt-get update && apt-get install -y libssl-dev
+
