@@ -6,9 +6,9 @@ RUN cargo install credentials_to_env
 #--------------------------------------------------------------------
 # Create a fresh image without the compile-time dependencies.
 #--------------------------------------------------------------------
-FROM debian:jessie-slim
+FROM debian:stretch-slim
 
 COPY --from=0 /usr/local/cargo/bin/credentials-to-env /usr/local/bin/credentials-to-env
 
-RUN apt-get update && apt-get install -y libssl-dev
+RUN apt-get update && apt-get install -y libssl1.1 && apt-get clean
 
